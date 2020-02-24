@@ -1,0 +1,353 @@
+\documentclass[12pt,letterpaper,boxed]{math_hw_pset}
+
+% set 1-inch margins in the document
+\usepackage[margin=1in]{geometry}
+
+% include this if you want to import graphics files wxith /includegraphics
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath} 
+\usepackage{braket} 
+\usepackage{relsize}
+\usepackage{lmodern} % math, rm, ss, tt
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\nn}{\mathbb{N}}
+\newcommand{\qq}{\mathbb{Q}}
+\newcommand*{\ms}[1]{\ensuremath{\mathscr{#1}}}
+\renewcommand{\labelenumi}{{\bf (\alph{enumi})}}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\<}{\left<}
+\renewcommand{\>}{\right>}
+\newcommand{\oo}{\mathcal{O}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Spring 2020}
+\lhead{\vspace{5mm} Math 143}
+\rfoot{Page \thepage}
+\chead{Homework \#1}
+
+
+% info for header block in upper right hand corner
+\name{Name: Luke Trujillo}
+\duedate{Due Date: January, 28, 2020} 
+
+\begin{document}
+\begin{center}
+    143 Hw \#1
+\end{center}
+
+\begin{exercise}[A5.]
+    Let $A$ be a $5\times5$ matrix. Suppose $A$ has distinct eigenvalues 
+    $-1, 1, -10, 5,2$.
+    \begin{enumerate}
+        \item What is $\det A$? What is $\text{tr}A$? 
+        \item If $A$ and $B$ are similar, what is $\det B$? Why?
+        \item Do you expect that all eigenvectors of $A$ are mutually orthogonal? Why?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}
+        \item Since the product of our eigenvalues (in general, taking into account algebraic multiplicity)
+        result in the determinant,  we have that 
+        \[
+            |A| =  (-1)\cdot(1)\cdot(-10)\cdot(5)\cdot(2) = 100.
+        \]
+        On the other hand, the trace is the sum of the eigenvalues, so  that 
+        \[
+            \text{tr}A  = -1 + 1 -10 + 5 + 2= -3.
+        \] 
+
+        \item The determinants must be equal. If $A$ and $B$ are similar, then there exists an invertible matrix $P$ 
+        such that $A = P^{-1}BP$. Hence we have that 
+        \[
+            |A| = |P^{-1}BP| = |P^{-1}|\cdot|B|\cdot|P| = |B|
+        \]
+        where we applied the product rule for determinants and used the fact that 
+        $|P^{-1}|  = |P| = 1$. Therefore $|B| = |A|$. 
+
+        \item Not unless $A$ is a real symmetric matrix. 
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{exercise}[A7.]
+    \begin{enumerate}
+        \item Prove that similar matrices have the same eigenvalues. 
+        \item Let $\lambda_1, \lambda_2, \dots, \lambda_k$ be distinct 
+        eigenvalues 
+        of a matrix $A$ with associated eigenvectors $x_1, x_2, \dots, x_k$ 
+        Prove that $x_1, x_2, \dots, x_k$ are linearly independent. 
+        \item Let $L: \rr^n \to \rr^n$ be a linear transformation defined
+        by $L(X) = AX$. 
+        Let $V_{\lambda} = \{\zeta \in \rr^n \mid L(\zeta) = \lambda\zeta\} 
+        .$ Prove that $V_\lambda$ is a subspace of $\rr^n$. (This subspace 
+        is called the eigenspace associated with $\lambda$.)
+
+        \item Let $\lambda$ be an eigenvalue of $A$ with multiplicity $r$. 
+        Let $\text{dim}V_{\lambda} = s$. Prove that $s \le r$. (That is, 
+        the dimension of the eigenspace associated with $\lambda$ is at 
+        most the multiplicity of $\lambda$.)
+
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}
+        \item Suppose that $n\times n$ matrices $M$ and $N$ are similar. 
+        Then there exists an invertible matrix $P$ such that $M = P^{-1}NP$. 
+        Now observe that the characteristic polynomial of $M$ will be given by 
+        \[
+            |M - \lambda  I| = |P^{-1}NP - \lambda  I|
+        \]
+        which we can rewrite as 
+        \[
+            |P^{-1}NP - \lambda P^{-1}IP| = |P^{-1}(N - \lambda I)P| = |P^{-1}|\cdot|N - \lambda I|\cdot |P|.
+        \]
+        Since $P$ is invertible, we have that $|P| = |P^{-1}| = 1$. Hence we have  that 
+        \[
+            |P^{-1}|\cdot|N - \lambda I| \cdot|P| = |N - \lambda I|
+        \]
+        which implies that $|M - \lambda I| = |N - \lambda I|$. As the characteristic polynomials of the  
+        two matrices are the same, we have that their roots must be equal, so that their 
+        eigenvalues are the same. 
+
+        \item Suppose $\lambda_1, \lambda_2, \dots \lambda_k$ and $x_1, x_2, \dots, x_k$ are distinct eigenvalues and eigenvectors 
+        of $A$, respectively. For the sake of contradiction, suppose that the set of eigenvectors is not linearly 
+        independent. Then there exists coefficients $c_i$, at least one nonzero, such that 
+        \[
+            x_j = \sum_{\substack{i = 1\\ i \ne j}}^kc_ix_i.
+        \] 
+        On one hand, we know that $A(x_j) = \lambda_jx_j$. However, the above equation tells us that 
+        \[
+            A(x_j) = \sum_{\substack{i = 1\\ i \ne j}}^kA(c_ix_i) 
+            = 
+            \sum_{\substack{i = 1\\ i \ne j}}^kc_i\lambda_ix_i.
+        \]
+        Therefore, we have that 
+        \[
+            \lambda_jx_k = \sum_{\substack{i = 1\\ i \ne j}}^kc_i\lambda_ix_i
+        \]
+        However, this is a contradiction since our initial hypothesis was that 
+        \[
+            x_j = \sum_{\substack{i = 1\\ i \ne j}}^kc_ix_i
+            \implies 
+            \lambda_jx_j
+            = 
+            \sum_{\substack{i = 1\\ i \ne j}}^kc_i\lambda_jx_i.
+        \]
+        and if we are to have distinct eigenvalues
+        \[
+            \sum_{\substack{i = 1\\ i \ne j}}^kc_i\bm{\lambda_i}x_i  
+            \ne 
+            \sum_{\substack{i = 1\\ i \ne j}}^kc_i\bm{\lambda_j}x_i
+        \]
+        Hence our initial hypothesis is wrong, and our collection of eigenvectors must 
+        be linearly independent. 
+        
+        \item For a given eigenvalue $\lambda$ of $A$, we first observe that $V_\lambda$ is 
+        nonempty, since it at least contains the eigenvector $x_\lambda$ associated with $\lambda$. 
+        Now suppose $x, y \in V_\lambda$. Then observe that 
+        \[
+            A(x  + y) = A(x) + A(y) = \lambda x + \lambda y = \lambda(x + y).
+        \]
+        Hence $x + y \in V_\lambda$. Finally, for any scalar multiple $c$ and $x \in V_\lambda$, 
+        \[
+            A(cx) = cA(x) = c\lambda x = \lambda(cx).
+        \]
+        So $cx \in V_\lambda$.
+        As $V_\lambda$ is nonempty, closed under vector addition and scalar multiplication, 
+        we see that it is a subspace of $\rr^n$ as desired. 
+
+        \item Observe that if $\dim V_{\lambda} = s$, then there exists a 
+        linearly independent set of vectors $x_1, x_2, \dots, x_s$ where 
+        \[
+            A(x_i) = \lambda x_i
+        \]
+        for $i=1,2,\dots, s$. If $A$ is $n\times n$, consider $n -  s$ 
+        vectors $y_1, \dots, y_{n-s}$ such that $\{x_1, x_2, \dots, x_s, y_1, y_2, \dots, y_{n-s}\}$ 
+        is a linearly independent set of $n$ vectors. 
+        Then let $M$ be the change of basis matrix on $A$ 
+        from the standard basis to the basis\\
+        $\{x_1, x_2, \dots, x_s, y_1, y_2, \dots, y_{n-s}\}$.
+        We can then represent this matrix as
+        \[
+            V = MAM^{-1}.
+        \]
+        Then $V$ and $A$ are similar. Since they are similar, $V$ and $A$ 
+        must have the same eigenvalues. But since $V$ is in the basis
+        $\{x_1, x_2, \dots, x_s, y_1, y_2, \dots, y_{n-s}\}$, the 
+        first $s\times n$ entires of the matrix must be zero, except along
+        that diagonal, with a value of $\lambda$. 
+
+        Since these matrices are similar, their characteristic polynomials 
+        are the same. Therefore, we have that 
+        \[
+            |A - \zeta I| = |V - \zeta I| = (x - \lambda)^sp(x)
+        \]
+        where $p(x)$ is some $(n -s)$-degree complex polynomial. 
+        However, we know that the algebraic multiplicity of $\lambda$ is 
+        $r$, so that $s \le r$, as desired. 
+
+
+
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{exercise}[A12.]
+    A linear transformation $L: V \to V$, where $V$ is an $n$-dimensional Euclidean space, 
+    is called \emph{orthogonal} if $\left<Lu, Lw \right> = \left< v, w \right>$. 
+    \begin{enumerate}
+        \item Let $A$ be an $n \times n$ matrix. Show that $A$ is orthogonal if and only if 
+        the columns (and rows) of $A$ form an orthonormal basis for $\rr^n$. 
+
+        \item Let $S$ be an orthonormal basis for $V$ and let the matrix $A$ represent  the 
+        orthogonal linear transformation $L$ with respect to $S$. Prove that $A$ is an orthogonal 
+        matrix. 
+
+        \item Prove that for any vectors $u, v \in \rr^n$, $\left< Lu, Lv\right> =  \left<u,v \right>$
+        if and only if for any $u \in \rr^n$, $||Lu||= ||u||$. 
+
+        \item Let $L: V \to V$ be an orthogonal linear transformation. Show that if $\lambda$ is 
+        an eigenvalue of $L$, then $|\lambda| = 1$. 
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}
+        \item Suppose $A$ is orthogonal. Recall that for an orthogonal matrix 
+        we have that $A^{-1} = A^{T}$. Hence it is invertible. That is, $AA^{T} = AA^{-1} = I$. 
+        Now suppose $A$ is of the form
+        \[
+            A = 
+            \begin{pmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                a_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots \\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{pmatrix}
+            = 
+            \begin{pmatrix}
+                x_1 & x_2 & \dots & x_n
+            \end{pmatrix}
+        \]
+        where $x_i$ are the column vectors. Note that since $A$ is invertible, the 
+        columns vectors are linearly independent.
+        Now
+        \begin{align*}
+            AA^{T} = I &\iff
+            \begin{pmatrix}
+                x_1 & x_2 & \dots & x_n
+            \end{pmatrix}
+            \begin{pmatrix}
+                x_1^T \\
+                x_2^T\\
+                \vdots\\
+                x_n^T
+            \end{pmatrix}
+            = I\\
+            &\iff
+            \begin{pmatrix}
+                \left<x_1, x_1 \right> & \left<x_2, x_1\right> & \cdots & \left<x_n, x_1 \right>\\
+                \left<x_1, x_2 \right> & \left<x_2, x_2 \right> & \cdots & \left<x_n, x_2  \right>\\
+                \vdots & \vdots & \ddots & \vdots\\
+                \left<x_1, x_n \right>& \left<x_2, x_n \right> & \cdots & \left<x_n, x_n \right>
+            \end{pmatrix}
+            = 
+            \begin{pmatrix}
+                1 & 0 & \cdots & 0\\
+                0 & 1 & \cdots & 0 \\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 1
+            \end{pmatrix}\\
+        \end{align*}
+        and the above holds $\left<x_i, x_j\right> = 1$ 
+        if and only if $i = j$ and is zero otherwise. Since 
+        $\left<x_i, x_i\right> = ||x_i|| = 1$, this shows that each vector $x_i$
+        is normalized. Since $\left<x_i, x_j\right> = 0$ for $i \ne j$, this shows that 
+        each vector is mutually orthogonal to one another. Finally, since the 
+        vectors are linearly independent, we see that the columns of $A$, 
+        $x_1, x_2, \dots, x_n$, form an orthonormal basis of $\rr^n$. 
+
+        Now observe that it doesn't matter if we started with $A$ or $A^T$, since in 
+        the end $(A^T)^T = A$. Therefore the entire process could be repeated by first starting with 
+        $A^T$. This then shows that the rows of $A$ also form an orthonormal basis of $\rr^n$. 
+
+        \item Since $A$ represents $L$ with respect to the orthonormal basis $B$, 
+        write $S =  \{x_1, x_2, \dots, x_n\}$, so that
+        \[
+            A = 
+            \begin{pmatrix}
+                [L(x_1)]_S & [L(x_2)]_S & \cdots & [L(x_n)]_S 
+            \end{pmatrix}.
+        \]
+        Observe however that 
+        \begin{align*}
+            AA^{T} &= \begin{pmatrix}
+                [L(x_1)]_S & [L(x_2)]_S & \cdots & [L(x_n)]_S 
+            \end{pmatrix}
+            \begin{pmatrix}
+                [L(x_1)]_S \\ [L(x_2)]_S \\ \cdots \\ [L(x_n)]_S 
+            \end{pmatrix}\\
+            &=
+            \begin{pmatrix}
+                \left<[L(x_1)]_S, [L(x_1)]_S \right> & \left<[L(x_2)]_S, [L(x_1)]_S \right>
+                & \cdots \left< [L(x_n)]_S, [L(x_1)]_S \right>\\
+                \left<[L(x_1)]_S, [L(x_2)]_S \right> & \left<[L(x_2)]_S, [L(x_2)]_S \right>
+                & \cdots \left< [L(x_n)]_S, [L(x_2)]_S \right>\\
+                \vdots & \vdots & \ddots & \vdots\\
+                \left<[L(x_1)]_S, [L(x_n)]_S \right> & \left<[L(x_2)]_S, [L(x_n)]_S \right>
+                & \cdots \left< [L(x_n)]_S, [L(x_n)]_S \right>\\
+            \end{pmatrix}\\
+            &= 
+            \begin{pmatrix}
+                \left<[x_1]_S, [x_1]_S  \right> & \left<[x_2]_S, [x_1]_S  \right> & \cdots & \left<[x_n]_S, [x_1]_S  \right>\\
+                \left<[x_1]_S, [x_2]_S  \right> & \left<[x_2]_S, [x_2]_S  \right> & \cdots & \left<[x_n]_S, [x_2]_S  \right>\\
+                \vdots & \vdots & \ddots & \vdots\\
+                \left<[x_1]_S, [x_n]_S  \right> & \left<[x_2]_S, [x_n]_S  \right> & \cdots & \left<[x_n]_S, [x_n]_S  \right>
+            \end{pmatrix}\\
+            &= 
+            \begin{pmatrix}
+                1 & 0 & 0 \cdots & 0\\
+                0 & 1 & 0 \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & 1
+            \end{pmatrix}
+        \end{align*}
+        where in the last step we used the fact that $x_1, x_2, \dots, x_n$ is an orthonormal 
+        basis. Hence we see that $AA^T = I$, so that $A$ is an orthonormal matrix. 
+
+        \item Suppose that $\<L(u), L(v)\> = \<u, v\>$ for every $u,v \in \rr^n$. Then 
+        in particular $\<L(u) , L(u)\> = \<u, u\> \implies ||L(u)|| = ||u||$ by definition. 
+
+        On the other hand, suppose $||L(u)|| = ||u||$ for all $u \in \rr^n$. Then 
+        for any vectors $u, v \in \rr^n$, we have that 
+        \begin{align*}
+            ||L(u + v)|| = ||u + v|| &\implies \<L(u + v), L(u + v)\>  = \<u + v, u + v\>\\
+            &\implies \<L(u) + L(v), L(u) + L(v)\> = \<u, v\> + \<u, v\>\\
+            &\implies \<L(u), L(v)\> + \<L(u), L(v)\> = \<u, v\> + \<u, v\>\\
+            &\implies 2\<L(u), L(v)\> = 2\<u, v\>\\
+            &\implies \<L(u), L(v)\> = \<u, v\>
+        \end{align*}
+        where we repeatedly used the linearity in the first and second coordinates 
+        of the dot product. 
+
+        With both directions proved, we see that $\left< Lu, Lv\right> =  \left<u,v \right>$
+        if and only if for any $u \in \rr^n$, $||Lu||= ||u||$ for any vectors $u,v \in \rr^n$ as desired. 
+
+        \item Suppose $\lambda$ is an eigenvalue of $A$ with associated eigenvector $x$. Then 
+        $Ax = \lambda x$. Thus 
+        \begin{align*}
+            Ax = \lambda x \implies ||Ax|| = ||\lambda x|| \implies ||x|| = |\lambda|\cdot||x|| \implies |\lambda| =1
+        \end{align*}
+        where we used  the fact that since $A$ is orthogonal, $||Ax|| = ||x||$. Hence 
+        the maginitude of every eigenvalue of $A$ is one. 
+    \end{enumerate}
+\end{solution}
+
+\end{document}

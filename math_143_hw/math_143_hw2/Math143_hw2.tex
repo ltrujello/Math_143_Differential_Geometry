@@ -1,0 +1,325 @@
+\documentclass[12pt,letterpaper,boxed]{math_hw_pset}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath} 
+\usepackage{braket} 
+\usepackage{relsize}
+\usepackage{lmodern} % math, rm, ss, tt
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\nn}{\mathbb{N}}
+\newcommand{\qq}{\mathbb{Q}}
+\newcommand*{\ms}[1]{\ensuremath{\mathscr{#1}}}
+\renewcommand{\labelenumi}{{\bf (\alph{enumi})}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\oo}{\mathcal{O}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Spring 2020}
+\lhead{\vspace{5mm} Math 143}
+\rfoot{Page \thepage}
+\chead{Homework \#2}
+
+
+% info for header block in upper right hand corner
+\name{Name: Luke Trujillo}
+\duedate{Due Date: Monday, 2/17/20} 
+
+\begin{document}
+\begin{center}
+    143 Hw \#2
+\end{center}
+
+\begin{exercise}[Problem 1.]
+    Show $\rr P^n$ is a differentiable manifold by definition.
+\end{exercise}
+
+\begin{solution}
+    Recall that $\rr P^n$ is the set of all lines which pass through the origin 
+    of $\rr^{n+1}$. 
+    Let $(x_1, \dots, x_{n+1})\in \rr^{n+1}$. Then we can also 
+    see that $\rr P^n$ can be identified as the quotient sapce $\rr^{n+1}-\{0\}/\sim$
+    with the equivalence relation 
+    $(x_1, \dots, x_{n+1}) \cong (\lambda x_1, \dots, \lambda x_{n+1})$ 
+    where $\lambda \in \rr-\{0\}$. 
+    In this interpretation, the points of $\rr P^n$ will be denoted 
+    by the equivalence classes, denoted as $[x_1, x_2, \dots, x_{n+1}]$. 
+    Notice that 
+    \[
+      [x_1, \dots, x_{n+1}] = \Big[\frac{x_1}{x_i}, \dots, \hspace{-0.9cm} \overbrace{1}^{i-\text{th coordinate}},\hspace{-0.9cm} \dots, \frac{x_{n+1}}{x_i}\Big].
+    \]
+    for any nonzero $x_i$ in the representation $x_1, \dots, x_{n+1}$ of the equivalence class.
+    Define subsets $V_i \subset \rr P^n$ by 
+    \[
+        V_i = \{[x_1, x_2, \dots, x_{n+1}] \mid x_i \ne 0 \} \quad i = 1,2, \dots, n.
+    \]
+    The claim to prove now is that $\rr P^n$ can be covered by the sets $V_1, \dots, V_n$. 
+    This is obtained by the maps 
+    $\phi_i: \rr^n \to M$
+    \[
+        \phi_i(y_1,  \dots, y_n) = [y_1, \dots, y_{i-1}, 1, y_{i}, \dots, y_n] 
+    \]
+    where $y_{j} = \dfrac{x_j}{x_i}$. 
+    First, observe that the maps are injective; for if
+    \[
+        [y_1, \dots, y_{i-1}, 1, y_{i+1}, \dots, y_n]
+        =
+        [y'_1, \dots, y'_{i-1}, 1, y'_{i+1}, \dots, y'_n]
+    \]
+    then there exists a scalar $\lambda$ such that 
+    \[
+        (y_1,  \dots, 1, \dots, y_n)
+        =
+        (\lambda y'_1,  \dots, \lambda, \dots, \lambda y'_n)
+        \implies 
+        \lambda = 1.
+    \]
+    Hence the points must be equal. 
+    Next, observe that 
+    \[
+        \bigcup_{i=1}^{n}\phi_i\left( \rr^n \right)
+        = 
+        \{[y_1, \dots, \hspace{-0.9cm} \overbrace{1}^{i-\text{th coordinate}}\hspace{-0.9cm},  \dots, y_n] 
+        \mid (y_1, \dots, y_n) \in \rr^n, i =  1,2, \dots, n\}
+        = 
+        \rr P^n.
+    \] 
+    Next, consider $\phi_i^{-1}(V_i \cap V_j)$, and observe that 
+    \begin{align*}
+        \phi_i^{-1}(V_i \cap V_j)
+        =
+        \{(y_1, \dots, y_n) \mid y_j \ne 0\}.
+    \end{align*}
+    Since this is the complement of $\{(y_1, \dots, y_n) \mid y_j = 0\}$, 
+    a closed set, we see that it must be open. Now suppose $i > j$; then 
+    observe that 
+    \begin{align*}
+        \phi_j^{-1}\circ \phi_i(y_1, \dots, y_n)
+        &=
+        \phi_j^{-1}[y_1, \dots, y_{i-1}, 1, y_i, \dots, y_n]\\
+        &=
+        \phi_j^{-1}\left[ \frac{y_1}{y_j}, \dots, y_{j-1}, \hspace{-0.9cm} \overbrace{1}^{j-\text{th coordinate}}\hspace{-0.9cm}, y_{j+1}, \dots,\frac{y_{i-1}}{y_j}, \frac{1}{y_j}, \frac{y_i}{y_j}, \dots, \frac{y_n}{y_j} \right]\\
+        &= 
+        \left( \frac{y_1}{y_j}, \dots, \frac{y_{j-1}}{y_j}, \frac{y_{j+1}}{y_j}, \dots,  \frac{y_{i-1}}{y_j}, \frac{1}{y_j}, \frac{y_i}{y_j}, \dots, \frac{y_n}{y_j} \right).
+    \end{align*}
+    which is differentiable as $y_j \ne 0$.
+    The case is the same if $j > i$; it's simply a matter of notational difference. 
+    In this case, 
+    \begin{align*}
+        \phi_j^{-1}\circ \phi_i(y_1, \dots, y_n)
+        &=
+        \phi_j^{-1}[y_1, \dots, y_{i-1}, 1, y_i, \dots, y_n]\\
+        &=
+        \phi_j^{-1}\left[ \frac{y_1}{y_j}, \dots,\frac{y_{i-1}}{y_j}, \frac{1}{y_j}, \frac{y_i}{y_j}, \dots, y_{j-1}, \hspace{-0.9cm} \overbrace{1}^{j-\text{th coordinate}}\hspace{-0.9cm}, y_{j+1}, \dots \frac{y_n}{y_j} \right]\\
+        &= 
+        \left( \frac{y_1}{y_j}, \dots,  \frac{y_{i-1}}{y_j}, \frac{1}{y_j}, \frac{y_i}{y_j}, \dots, \frac{y_{j-1}}{y_j}, \frac{y_{j+1}}{y_j}, \dots, \frac{y_n}{y_j} \right).
+    \end{align*}
+    which is also differentiable since $y_j \ne 0$. In either case, we 
+    see that $\phi_j^{-1}\circ \phi_i$ is differentiable. In total, 
+    we see that $\rr P^n$ is a differentiable manifold, as desired. 
+\end{solution}
+
+\begin{exercise}[Problem 2.]
+    Show why the set of tangent vectors which tangent to all the curves starting from a point on 
+    a manifold $M$ form a linear space (called a tangent space at $p$ of $M$, denoted $T_p M$). 
+\end{exercise}
+
+\begin{solution}
+    Let $\alpha: (-\epsilon, \epsilon) \to  M$ be a curve on $M$ 
+    where  $\alpha(0) = p$.
+    Recall that if $\mathcal{D}$ denotes the set of differentiable functions $f$ on $M$ 
+    defined at $p$, then
+    the tangent vectors at $p$ are given by the function  $\alpha'(0): \mathcal{D} \to \rr$ 
+    where
+    \[
+        \alpha'(0)f = \frac{d(f\circ\alpha)}{dt}\Big|_{t=0}.
+    \]
+    Let $x: U \subset \rr^n \to M$ be a parameterization where $p \in x(U)$. 
+    Then $x^{-1} \circ \alpha: (-\epsilon, \epsilon) \to \rr^n$ is differentiable.
+    That is, $x^{-1}\circ \alpha = (x_1(t), \dots, x_n(t))$ for some differentiable $x_i(t)$.  
+    So we see that 
+    \begin{align*}
+        \frac{d(f\circ\alpha)}{dt}\Big|_{t=0}
+        &= 
+        \frac{d}{dt}f \circ x(x_1(t), \dots, x_n(t)\Big|_{t=0}\\
+        &= 
+        \frac{d}{dt}f(x_1(t), \dots, x_n(t))\Big|_{t=0}\\
+        &= 
+        \sum_{i=1}^{n}x'_i(0)\frac{\partial f}{\partial x_i}\Big|_{t=0}
+    \end{align*}
+    Thus we see that $\displaystyle \alpha'(0)(f) = \sum_{i=1}^{n}x'_i(0)\frac{\partial f}{\partial x_i}\Big|_{t=0}$; 
+    hence we may express the operator $\alpha'(0): \mathcal{D} \to \rr$ 
+    in the basis $\displaystyle \left(\frac{\partial}{\partial x_i}\right)_{0}$, where the zero 
+    denotes the evaluation at zero. This basis is 
+    orthogonal, since each $\displaystyle \left(\frac{\partial}{\partial x_i}\right)_{0}$ 
+    demonstrates the tangent vector of the map $x(0, \dots, x_i, \dots, 0)$, where the $x_i$ appears 
+    in the $i$-th coordinate. Moreover, this is the dual basis of 
+    $\{dx_1, \dots, dx_n\}$. Therefore we see that $T_pM$ 
+    can be endowed with an $n$-orthogonal vector, which shows that it is an $n$-dimensional 
+    vector  space, as desired.  
+    
+\end{solution}
+
+\begin{exercise}[Problem 3.]
+    Show we can put a differentiable structure on a tangent bundle of a differen-
+tiable manifold. 
+\end{exercise}
+
+\begin{solution}
+    Let $M$ be a differentiable $n$-manifold. Denote the tangent bundle 
+    as the set 
+    \[
+        TM = \{(p, v) \mid p \in M, v \in T_pM \}.
+    \]
+    We'll show that $TM$ itself, known as the \textbf{tangent bundle}, is  
+    itself a manifold.
+    
+    Since $M$ is differentiable, there exists a (maximal)
+    differentiable structure $\{(U_\alpha), \phi_\alpha\}$ with $\alpha \in \lambda$, an indexing set, 
+    with 
+    $\phi_\alpha: U_\alpha \to M$ which satisfy the three properities required
+    of a differentiable manifold. 
+
+    Denote the coordinates of $U_\alpha$ by $(x^\alpha_1, \dots, x^\alpha_n)$, 
+    and suppose we denote $\displaystyle \left\{ \frac{\partial}{\partial x_1^\alpha}, \dots, \frac{\partial}{\partial x_n^\alpha} \right\}$
+    as the basis for the tangent space induced by $\phi_\alpha(U_\alpha)$.  
+    Now define the functions $\psi_\alpha: U_\alpha\times\rr^n \to TM$ as 
+    \[
+        \psi_\alpha((x_1^\alpha, \dots, x_n^\alpha), (u_1, \dots, u_n)) 
+        = \left(\phi_\alpha(x_1^\alpha,  \dots, x_n^{\alpha}), 
+        \sum_{i=1}^{n}u_i\frac{\partial}{\partial x_i^\alpha}\right)
+    \]
+    Observe that this map makes sense since $\phi_\alpha(x_1^\alpha, \dots, x_n^\alpha)$ 
+    is of course a point $p$ on $M$ and $\displaystyle  \sum_{i=1}^{n}u_i\frac{\partial}{\partial x_i^\alpha}$ 
+    is a vector in $T_pM$. Hence the above tuple is in $TM$. 
+
+    We must now show that our set of maps, $(U_\alpha\times\rr^n, \psi_\alpha)$,  
+    establish that $TM$ is a differentiable manifold. First observe that these maps 
+    are injective. Injectivity in the first coordinate is inherited from the injectivity of 
+    each $\phi_\alpha$.
+    It is easy to see that injectivity is established in the second coordinates 
+    since 
+    \[
+        \sum_{i=1}^{n}u_i\frac{\partial}{\partial x_i^\alpha} = \sum_{i=1}^{n}u'_i\frac{\partial}{\partial x_i^\alpha} 
+        \implies u_i = u'_i, i = 1,2, \dots, n.
+    \]
+    Hence each $\psi_\alpha$ must be injective. 
+
+    Now observe that 
+    \begin{align*}
+        \bigcup_{\alpha \in \lambda}\psi_\alpha\left( U_\alpha\times\rr^n \right)
+        = 
+        \bigcup_{\alpha \in \lambda}\{ (p, v) \mid p \in \phi_\alpha(U_\alpha), v \in T_pM \}
+        = 
+        TM.
+    \end{align*}
+    This is because firstly $\bigcup_{\alpha \in \lambda}\phi_\alpha(U_\alpha) = M$
+    and secondly
+    since $(u_1, \dots, u_n) \in \rr^n$ is allowed to vary, 
+    we see that 
+    \begin{align*}
+        \psi_\alpha(U_\alpha \times \rr^n) &= \bigcup_{(x_1^\alpha, \dots, x_n^\alpha) \in U_\alpha}\psi_\alpha( \{(x_1^\alpha, \dots, x_n^\alpha)\} \times \rr^n)\\
+        &= \bigcup_{(x_1^\alpha, \dots, x_n^\alpha) \in U_\alpha}
+        \left\{\left(\phi_\alpha(x_1^\alpha, \dots, x_n^\alpha), \sum_{i=1}^{n}u_i\frac{\partial}{\partial x_i^\alpha}\right)
+        \mid (u_1, \dots, u_n) \in \rr^n\right\}\\
+        &= \left\{\left(\phi_\alpha(x_1^\alpha, \dots, x_n^\alpha), 
+        v
+        \right) \mid (x_1^\alpha, \dots, x_n^\alpha) \in U_\alpha, v \in \text{span}\left\{ \frac{\partial}{\partial x_1^\alpha}, \dots, \frac{\partial}{\partial x_n^\alpha} \right\}\right\}\\
+        &= \{ (p, v) \mid p \in \phi_\alpha(U_\alpha), v \in T_pM \}
+    \end{align*}
+    since $\displaystyle \text{span}\left\{ \frac{\partial}{\partial x_1^\alpha}, \dots, \frac{\partial}{\partial x_n^\alpha} \right\} = T_{\phi_\alpha(x_1^\alpha, \dots, x_n^\alpha)}M$. 
+    Hence we are able to appropriately cover $TM$ with our set of maps.
+
+    Now suppose $\psi_\alpha(U_\alpha \times  \rr^n) \cap \psi_\beta(U_\beta \times \rr^n) = W$ 
+    is nonempty. Then $U_\alpha \cap U_\beta$ is nonempty, and therefore is an open set,
+    so that $\psi_\alpha^{-1}(W) = U_\alpha\cap U_\beta \times \rr^n$ is an open set. 
+
+    Finally, consider $(p, v) \in W$. Then we have that 
+    \begin{align*}
+        (p, v) &= (\phi_\alpha(x_1^\alpha, \dots, x_n^\alpha), d\phi_\alpha(v_\alpha))\\
+        &= (\phi_\beta(x_1^\beta, \dots, x_n^\beta), d\phi_\beta(v_\beta))
+    \end{align*}
+    for some $(x_1^\alpha, \dots, x_n^\alpha) \in U_\alpha, (x_1^\beta, \dots, x_n^\beta) \in U_\beta$, 
+    and $v_\alpha, v_\beta \in \rr^n$. Now observe that 
+    \begin{align*}
+        \psi_\beta^{-1}\circ \psi_\alpha((x_1^\alpha, \dots, x_n^\alpha), v_\alpha)
+        &= \psi_\beta^{-1}(\phi_\alpha(x_1^\alpha, \dots, x_n^\alpha), d\phi_\alpha(v_\alpha))\\
+        &= (\phi_\beta^{-1}\circ \phi_\alpha(x_1^\alpha, \dots, x_n^\alpha), d(\phi_\beta^{-1}\circ\phi_\alpha)(v_\alpha)).
+    \end{align*}
+    But we already know that $\phi_\beta^{-1}\circ\phi_\alpha$ is differentiable. 
+    Hence, $\psi_\beta^{-1}\circ\psi_\alpha$ must also be differentiable. Thus we see that  
+    the tangent bundle of a differentiable manifold is also a differentiable manifold, as 
+    $\{(U_\alpha, \psi_\alpha)\}_{\alpha \in \lambda}$ provides a differentiable stucture on $TM$. 
+ 
+\end{solution}
+
+\newpage
+\begin{exercise}[Problem 4.]
+    If $M$ is a manifold and $G$ is a group that acts discontinuously on 
+    $M$, Show $M/G$ is a manifold (see page 23).
+\end{exercise}
+
+\begin{solution}
+    For this to work, we actually need $M$ to be a \textit{differentiable} manifold. 
+    This will show up later.
+
+    To show this, let $p$ be a point of $M$ and consider the neigborhood 
+    $U$ of $p$ such that $U \cap \phi_g(U) = \varnothing$ for all nontrivial $g \in G$; 
+    a neighborhood which is guaranteed to exist since we suppose $G$ acts discontinuously 
+    on $M$. 
+
+    Since $M$ is a differentiable manifold, pick a parameterization $x: V \to M$ 
+    such that $x(V) \subset U$. Then we see that $\pi \circ x: V \to M/G$ is 
+    an injective mapping. For if $\pi(p_1) = \pi(p_2)$ for some distinct 
+    $p_1, p_2 \in x(V)$,
+    then $p_1 = g'p_2$ for some $g' \in  G$. In this case, $G$ then 
+    no longer acts discontinuously (as then $U \cap \phi_{g'}(U) \ne \varnothing$).
+    Hence this mapping $y = \pi \circ x: V \to M/G$ is injective.
+
+    As $y: V \to M/G$ covers $M/G$, we see must show that for any for any two 
+    analagous mappings $y_1 = \pi\circ x_1: V_1 \to M/G$ and 
+    $y_2 = \pi\circ x_2: V_2 \to M/G$, we have that $y_1(V_1)\cap y_2(V_2) \ne 0$   
+    implies that $y_1^{-1}\circ y_2$ is differentiable. 
+
+    Define 
+    \begin{align*}
+        \pi_1&= \pi\big|_{x_1(V_1)}: x_1(V_1) \to M/G\\
+        \pi_2&= \pi\big|_{x_2(V_2)}: x_2(V_2) \to M/G.
+    \end{align*}
+    Suppose $y_1(V_1)\cap  y_2(V_2) \ne \varnothing$. Then for $q \in y_1(V_1)\cap y_2(V_2)$, 
+    let $r = (\pi_2\circ x_2)^{-1}(p)$. Let $W$ be a neighborhood of $r$ 
+    such that $(\pi_2 \circ x_2)(W) \subset y_1(V_1)\cap y_2(V_2)$. Then 
+    \[
+        y_1^{-1}\circ y_2\big|_W = x_1^{-1}\circ \pi_1^{-1}\circ\pi_2 \circ x_2.
+    \] 
+    Note that $x_1^{-1}$ and $x_2$ are necessarily differentiable; hence 
+    for $y_1^{-1} \circ y_2$ to be differentiable, we need $\pi_1^{-1}\circ\pi_2$  to 
+    be differentiable on the restriction of $x_2(W)$. To show this, suppose $p_2 = \pi_1^{-1}\circ \pi_2(p_1)$. 
+    Then $\pi_1(p_2) = \pi_2(p_1)$, so that $p_1$ and $p_2$ are in the same equivalence 
+    class in $M/G$. Therefore, $p_1 = gp_2$ for some element $g \in  G$. 
+    However, we know that the only function which achieves this is the \textit{unique} 
+    diffeomorphism $\phi_g: M \to M$. Hence we see that 
+    \[
+        \pi_1^{-1}\circ\pi_2 = \phi_g\big|_{x_2(W)} = \phi_g\big|_{x_2(W)}
+    \]
+    so that $\pi_1^{-1}\circ\pi_2$ is differentiable on the restriction of $x_2(W)$.
+    Hence we  see that 
+    \[
+        y_1^{-1}\circ y_2\big|_W = x_1^{-1}\circ \pi_1^{-1}\circ\pi_2 \circ x_2
+    \]
+    is differentiable, and that the mapping $(V, y)$ provides a differenitable structure 
+    on $M/G$, as desired. 
+
+
+
+
+
+
+\end{solution}
+
+\end{document}
