@@ -8,13 +8,12 @@ load PrunedLanguageDataset; %Read in the data;
 myvars= whos;               %Get the variable names
 
 for i=1:length(myvars) 	    %For all variables
-    i
 	%Set the output variable names
 	v = genvarname(['Analysis_Object_' myvars(i).name]);
     %v = genvarname(['Spectrogram' myvars(i).name]);
 	%Give the sequence the full LPC/PSD treatment
 	%eval([v ' = Analysis_Obj_Creator(eval(myvars(i).name)); '])
-   
+    eval(myvars(i).name)
     eval([v ' = Spectrogram_smooth(eval(myvars(i).name)); '])
    save('Phonetic.mat',v,'-append')
 end
@@ -39,7 +38,6 @@ WarpingdPSDs_DigitGender =struct;
 unWarpingdPSDs_DigitGender =struct;
 %Populate with empty warped PSD
 for  u=1:1:n
-    u
 	NameOfVariable =  ListOfVars(u).name(17:(end-2));
 	eval(['WarpedPSDs_DigitGender.' NameOfVariable '= zeros(81,100);']);
     eval(['WarpingPSDs_DigitGender.' NameOfVariable '= zeros(1,100);']);
@@ -48,9 +46,9 @@ end
 
 %Set up the warper 
 %Uncomment to recompile the first time
-%cd ../PACE-WARP_Customized/
-%mex -Ieigen-eigen-43d9075b23ef/ rthik_E_2D.cpp 
- % 
+cd PACE-WARP_Customized/
+mex -Ieigen-eigen-43d9075b23ef/ rthik_E_2D.cpp 
+ 
  addpath('PACE-WARP_Customized/')
 
 %For each specific Digit
@@ -63,7 +61,6 @@ for DigitBase =1:1:10
         %Construct the unwarped female utterences dataset 
         k=1;
         for u=1:1:n
-            u
             if (ListOfVars(u).name(22:end-4) == num2str(DigitBase) )
                 if (ListOfVars(u).name(end-2) == 'F')		
                     ddd = eval(ListOfVars(u).name); 
@@ -78,7 +75,6 @@ for DigitBase =1:1:10
         %Construct the unwarped female utterences dataset 
         k=1;
         for u=1:1:n
-            u
             if (ListOfVars(u).name(22:end-4) == num2str(DigitBase) )
                 if (ListOfVars(u).name(end-2) == 'M')		
                     ddd = eval(ListOfVars(u).name); 
@@ -97,13 +93,11 @@ for DigitBase =1:1:10
         %Save the warped frequency slice on the appropriate PSD position 
         %for every name find the corresponding index
         for u=1:1:length(DigitVariableNamesF ) 
-            u
             eval(['WarpedPSDs_DigitGender.' char( DigitVariableNamesF(u)) ' = aligned_dbF{' num2str(u) '};']);
             eval(['WarpingPSDs_DigitGender.' char( DigitVariableNamesF(u)) ' = h_dbF(' num2str(u) ',:);']);
             eval(['unWarpingPSDs_DigitGender.' char( DigitVariableNamesF(u)) ' = hinv_dbF(' num2str(u) ',:);']);
         end        
-        for u=1:1:length(DigitVariableNamesM )
-            u
+        for u=1:1:length(DigitVariableNamesM )    
             eval(['WarpedPSDs_DigitGender.' char( DigitVariableNamesM(u)) ' = aligned_dbM{' num2str(u) '};']);
             eval(['WarpingPSDs_DigitGender.' char( DigitVariableNamesM(u)) ' = h_dbM(' num2str(u) ',:);']);
             eval(['unWarpingPSDs_DigitGender.' char( DigitVariableNamesM(u)) ' = hinv_dbM(' num2str(u) ',:);']);

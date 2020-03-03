@@ -4,7 +4,7 @@
 #include <string>   	// to read in the kernel name
 #include <vector>       // to construct the index list
 #include <map>	    	// to map kernels to integers for the switch
-#include "eigen-eigen-43d9075b23ef/Eigen/Core"   // to use basic Eigen structures
+#include <Eigen/Core>   // to use basic Eigen structures
 using namespace Eigen;
 using namespace std; 
 
