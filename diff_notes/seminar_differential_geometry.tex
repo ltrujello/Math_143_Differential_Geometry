@@ -1011,5 +1011,99 @@ We then take the derivative $x_u, x_v$ and state
     This quantity  is denoted as  $\dfrac{Dw}{dt}(0)$. 
 \end{definition}
 
+\section*{Lecture 10, 2/24/20}
+Recall the concept of the covariant derivative. We imagine a vector field defined 
+on our manifold; this means that at every point on our manifold, there 
+is a vector. We then project these vectors down onto the tangent planes from which they 
+originate to extract a type of derivative. 
+
+On the other hand, an affine connection on a differentiable manifold is a 
+function $\nabla(X,Y)$ which takes vector fields $X,Y$ and outputs $\nabla_XY$. 
+
+What's interesting to consider when this vector field is normal to the tangent plane; 
+hence the projection on the tangent plane becomes zero. 
+
+\begin{definition}
+    A vector field $w$ along a paramterized curive $\alpha: I \to M$ on our manifold 
+    $M$ such that 
+    $Dw(\alpha)/dt = 0$ for every  $t \in I$ is called \textbf{parallel}.  
+\end{definition}
+
+\begin{definition}
+    Let $M$ be a differentiable manifold, and suppose it has an affine connection 
+    and a Riemannian metric $\left< \right>$. Then a connection is \textbf{compatible}
+    with the metri when for any parallel vector fields $P, P'$ on $c$ we have that  
+    $\left< P,P' \right>$ is constant.
+\end{definition}
+
+The idea of a covariant derivative is analgous to the idea of a dot product. Based on its properties, 
+we can come up with all kinds of different ways of defining metrics. With the covariant derivative, we have a  
+similar case since we can come up with all kinds of different derivatives by interchanging  $X$ and $Y$. 
+
+\section*{Lecture 12, 3/2/20}
+Currently, the largest open problems in machine learning involve optimization. 
+The current most effective optimization methods include Newton's Method and the 
+Conjugate Gradient method. Machine learning also requires problems to be well-modeled, 
+which is currently achieved with Stiefel and Grassmanian manifolds. 
+
+Recall that Newton's method simply seeks to find the minimum values of a single 
+variable function $f(x)$ over $\rr$. This is achieved by inputing an initial guess,
+which leads to a sequence $\{x_k\}$  that converges to a minimum input value. 
+
+Let $Z$ be any $n\times p $ matrix. We want to decompose $Z$ into tangential 
+and normal components. 
+That is, we seek a form 
+\[
+    Z = \pi_n(Z) + \pi_p(Z).    
+\]
+\textbf{Claim:}  $\pi_n(Z) =Y\text{sym}(Y^TZ)$ and 
+$\pi_T(Z)  = Y\text{skew}(Y^TZ) + (I-YY^T)Z$. 
+First,  recall that 
+\[
+    A = \text{sym}(A) + \text{skew}(A) = \frac{A + A^T}{2} + \frac{A - A^T}{2}. 
+\]
+Also recall that 
+\[
+    g_E(\Delta_1, \Delta_2) = \text{tr}\Delta_1^T\Delta.
+\]
+The normal space at a point $y$ consists of all matrices $N$ 
+which satisfy $\{N \mid \text{tr}(\Delta^TN) = 0 \text{ for all } \Delta \in T_pM\}$.
+The set of $\{ (Y, N) \mid Y \in M, N \in \text{ normal space at } Y \}$
+is called the tangent bundle of $M$. 
+
+Note $\pi_N(Z) = Y\text{sym}(Y^TZ)$ is perpendicular to $T_YV_{P, N}$.
+Since $\text{tr}(\Delta^T\Pi_N(Z)) = \text{tr}(\Delta^TY\frac{Y^TZ + Z^TY}{2})$, 
+note that $\Delta^TY$ that this is a skew symmetric matrix. However, we already 
+know that $\text{sym}(Y^TZ)$ is symmetric. But the trace of a skew symmetric matrix multiplied a 
+symmetric matrix is zero. Hence we see that 
+\[
+    \text{tr}(\Delta^T\pi_N(Z)) = \left< \Delta, \pi_N(Z) \right>  = 0. 
+\]
+Therefore, we see that 
+\[
+    \{\pi_N(Z) \mid \text{ for all } Z \text{ is a } n\times p \text{ matrix}\} \subset \text{normal space at } Y
+\]
+But since they have the same dimension, we must conclude that 
+\[
+    \{\pi_N(Z) \mid \text{ for all } Z \text{ is a } n\times p \text{ matrix}\} = \text{ normal space }.
+\]
+This is because $\text{dim} T_Y V_{p,n} = np - \frac{p(p+1)}{2} = \frac{p(p+1)}{2} + p(n-p)$.
+
+Note 
+\begin{align*}
+    \pi_N(Z) = Y\text{skew}(Y^T) + (I - YY^T)Z
+\end{align*}
+is perpendicular to $\pi_N(Z)$ since 
+\[
+    \left< \pi_N(Z), \pi_T(Z) \right> = 0.
+\]
+which implies that 
+\begin{align*}
+    \text{tr}([\pi_n(Z)]^T\pi_T(Z)) = \text{tr}[\text{sym}(Y^TZ)]^TY^T[Y\text{skew}(Y^TZ) + (I-YY^T)Z]\\
+    = \text{tr}[\text{sym}(Y^TZ)(0) + 0]\\
+    = 0.
+\end{align*}
+In a similar fashion, this  implies  that $\text{dim}\pi_T(Z) = \text{dim}T_YV_{p,n}$.
+
 
 \end{document}
