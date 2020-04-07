@@ -1,0 +1,11 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Curves.}{2}
+\contentsline {subsection}{\numberline {1.1}Parameterizations and Regular Curves}{2}
+\contentsline {subsection}{\numberline {1.2}Fundamental Theorem of Curves}{4}
+\contentsline {section}{\numberline {2}Regular Surfaces.}{6}
+\contentsline {subsection}{\numberline {2.1}Manifolds and Regular Surfaces.}{6}
+\contentsline {paragraph}{\textit {Proof:}}{7}
+\contentsline {paragraph}{\textit {Proof:}}{8}
+\contentsline {paragraph}{\textit {Proof:}}{8}
+\contentsline {subsection}{\numberline {2.2}Change of Parameters and Differentiability}{10}
+\contentsline {paragraph}{\textit {Proof:}}{10}
